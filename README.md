@@ -4,11 +4,11 @@ This is a fork of the TextRecognitionDataGenerator.
 
 The fork is used for generating syntehic data for training the excellent [docTR OCR](https://github.com/mindee/doctr) engine.
 
-I would use the original lib but it had outdated dependencies and I could not get it to work.
+I would use the original lib, but some dependencies seems outdated and I could not get it to work.
 
 I just updated the dependency `arabic-reshaper` to 3.0.0 and it seems to work for my purpose. 
 
-When `TextRecognitionDataGenerator` is updated I will switch back to the original lib.
+If `TextRecognitionDataGenerator` is updated I will switch back to the original lib.
 
 ## Install
 

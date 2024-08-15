@@ -55,10 +55,11 @@ class DatabaseManager:
 
         # raise an exception if the database does not contain enough words
         if current_count < limit:
-            raise ValueError(
+            print(
                 f"The database contains {current_count} words for the language '{lang}', "
                 f"which is less than the specified limit of {limit}."
             )
+            exit(1) 
 
         """Get words from the database."""
         self.cursor.execute(
@@ -78,8 +79,7 @@ class DatabaseManager:
             c.execute(
                 """
                 INSERT INTO labels (image_name, word, lang) VALUES (?, ?, ?)
-                ON CONFLICT(image_name) DO UPDATE SET word=excluded.word;
-            """,
+                """,
                 (image_name, word, lang),
             )
         conn.commit()
@@ -93,8 +93,13 @@ class DatabaseManager:
         query = "SELECT * FROM labels"
         if lang:
             query += f" WHERE lang = '{lang}'"
+
+        query += " ORDER BY RANDOM()"
         if limit:
             query += f" LIMIT {limit}"
+        
+        
+
         self.cursor.execute(query)
         labels = self.cursor.fetchall()
 

@@ -10,10 +10,10 @@ def parse_args():
         description="Export generated images to a dataset",
     )
     parser.add_argument(
-        "--num-words",
+        "--num-images",
         type=int,
         default=None,
-        help="Minimum number of words to generate. It may generate more words.",
+        help="Number of images to generate labels for",
     )
     parser.add_argument(
         "--output-dir",
@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument(
         "--lang",
         type=str,
-        help="Language to use for generating words",
+        help="Language to use for generating labels",
         default=None,
     )
 
@@ -36,7 +36,7 @@ print(args)
 
 db = DatabaseManager(args.output_dir)
 
-labels = db.get_labels(lang=args.lang, limit=args.num_words)
+labels = db.get_labels(lang=args.lang, limit=args.num_images)
 
 labels_json_path = os.path.join(args.output_dir, "labels.json")
 with open(labels_json_path, "w", encoding="utf-8") as f:
