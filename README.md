@@ -28,32 +28,38 @@ There is also a bunch of other settings you may alter.
 
 ### generate some words from wikipedia
 
-This will generate at least `1000` words in a sqlite3 `database.db` placed in `train-data`. 
-Using docTR vocab `danish` and wiki lang `da`. 
+This will generate at least `1000` unique words in a sqlite3 `database.db` placed in `train-data`.
+The genereated words will use only characters that are in the doctr vocab `danish`. 
+The words will be generated from the `da` wikipedia.
+Words generated will be added to the `words` table in the `database.db` file.
 
     python generate-words.py --num-words 1000 --output-dir train-data --vocab danish --lang da
 
 ### generate images from database words
 
-In the `train-data/images` generate `1000 x 2` images using `da` words. 
+In the `train-data/images` generate `1000 x 2` images using `da` words. The generated images will also be added 
+to the `labels` table in the `database.db` file.
 
     python generate-img.py --num-words 1000 --num-images-per-word 2 --output-dir train-data --lang da
 
 ### generate labels
 
-    python generate-labels.py --output-dir train-data --num-words 2000 --lang da
+Extract the labels from the `database.db` file and write them to the `train-data/labels.json` file.
+
+    python generate-labels.py --output-dir train-data --lang da
 
 
 If you have followed the above steps you should have a `train-data` folder with images and labels, 
 which can be given as input to the `docTR OCR` training script.
 
-In practice you will have to generate many more images and labels.
+In practice you will have to generate many more images and labels. 
+Maybe 250000 words and e.g. 8 images per word. 
 
 Likewise you would generate a folder with `validation-data` for validating the training. 
 
 ## Training
 
-I think the easiest way to train is to use the `docTR OCR` training script.
+The easiest way to train is to use the `docTR OCR` training scripts.
 In the following there is instructions for pytorch training. 
 
 Clone the docTR repo and run the training script.
@@ -88,5 +94,3 @@ Clone the docTR repo and run the training script.
 # example convert from .pt to .bin
 
     python convert.py
-
-

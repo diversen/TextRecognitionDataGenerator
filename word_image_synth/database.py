@@ -99,13 +99,13 @@ class DatabaseManager:
             query += f" LIMIT {limit}"
         
         
-
+        # select as assoc
+        self.cursor.row_factory = sqlite3.Row
         self.cursor.execute(query)
         labels = self.cursor.fetchall()
 
         # Convert the labels to a dictionary
-        labels = {row[0]: row[1] for row in labels}
-
+        labels = {row["image_name"]: row["word"] for row in labels}
         return labels
 
     def close(self):
